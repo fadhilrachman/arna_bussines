@@ -1,0 +1,2189 @@
+openapi: 3.0.3
+info:
+  title: Arna Business Hub API
+  version: 1.0.0
+  description: 'Business Hub Service API for Bisnis Naik Kelas: roadmap, checklist,
+    Business Vault metadata, score, gamification, goals, calendar, AI insights, and
+    integration status.'
+paths:
+  /api/v1/business-hub/achievements/:
+    get:
+      operationId: achievements_list
+      tags:
+      - achievements
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Achievement'
+          description: ''
+  /api/v1/business-hub/achievements/{id}/:
+    get:
+      operationId: achievements_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this achievement.
+        required: true
+      tags:
+      - achievements
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Achievement'
+          description: ''
+  /api/v1/business-hub/ai/insights/:
+    get:
+      operationId: ai_insights_list
+      tags:
+      - ai
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AIInsight'
+          description: ''
+    post:
+      operationId: ai_insights_create
+      tags:
+      - ai
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AIInsightRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AIInsightRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AIInsightRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIInsight'
+          description: ''
+  /api/v1/business-hub/ai/insights/{id}/:
+    get:
+      operationId: ai_insights_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this ai insight.
+        required: true
+      tags:
+      - ai
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIInsight'
+          description: ''
+    put:
+      operationId: ai_insights_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this ai insight.
+        required: true
+      tags:
+      - ai
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AIInsightRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AIInsightRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AIInsightRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIInsight'
+          description: ''
+    patch:
+      operationId: ai_insights_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this ai insight.
+        required: true
+      tags:
+      - ai
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAIInsightRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAIInsightRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAIInsightRequest'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIInsight'
+          description: ''
+    delete:
+      operationId: ai_insights_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this ai insight.
+        required: true
+      tags:
+      - ai
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/business-hub/calendar/events/:
+    get:
+      operationId: calendar_events_list
+      tags:
+      - calendar
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CalendarEvent'
+          description: ''
+    post:
+      operationId: calendar_events_create
+      tags:
+      - calendar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalendarEventRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CalendarEventRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CalendarEventRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEvent'
+          description: ''
+  /api/v1/business-hub/calendar/events/{id}/:
+    get:
+      operationId: calendar_events_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this calendar event.
+        required: true
+      tags:
+      - calendar
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEvent'
+          description: ''
+    put:
+      operationId: calendar_events_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this calendar event.
+        required: true
+      tags:
+      - calendar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalendarEventRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CalendarEventRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CalendarEventRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEvent'
+          description: ''
+    patch:
+      operationId: calendar_events_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this calendar event.
+        required: true
+      tags:
+      - calendar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCalendarEventRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCalendarEventRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCalendarEventRequest'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEvent'
+          description: ''
+    delete:
+      operationId: calendar_events_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this calendar event.
+        required: true
+      tags:
+      - calendar
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/business-hub/checklist/completions/:
+    get:
+      operationId: checklist_completions_list
+      tags:
+      - checklist
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChecklistCompletion'
+          description: ''
+    post:
+      operationId: checklist_completions_create
+      tags:
+      - checklist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChecklistCompletionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChecklistCompletionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChecklistCompletionRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChecklistCompletion'
+          description: ''
+  /api/v1/business-hub/checklist/completions/{id}/:
+    get:
+      operationId: checklist_completions_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this checklist completion.
+        required: true
+      tags:
+      - checklist
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChecklistCompletion'
+          description: ''
+    put:
+      operationId: checklist_completions_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this checklist completion.
+        required: true
+      tags:
+      - checklist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChecklistCompletionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChecklistCompletionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChecklistCompletionRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChecklistCompletion'
+          description: ''
+    patch:
+      operationId: checklist_completions_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this checklist completion.
+        required: true
+      tags:
+      - checklist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedChecklistCompletionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedChecklistCompletionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedChecklistCompletionRequest'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChecklistCompletion'
+          description: ''
+    delete:
+      operationId: checklist_completions_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this checklist completion.
+        required: true
+      tags:
+      - checklist
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/business-hub/goals/:
+    get:
+      operationId: goals_list
+      tags:
+      - goals
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Goal'
+          description: ''
+    post:
+      operationId: goals_create
+      tags:
+      - goals
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GoalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GoalRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+          description: ''
+  /api/v1/business-hub/goals/{id}/:
+    get:
+      operationId: goals_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this goal.
+        required: true
+      tags:
+      - goals
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+          description: ''
+    put:
+      operationId: goals_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this goal.
+        required: true
+      tags:
+      - goals
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GoalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GoalRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+          description: ''
+    patch:
+      operationId: goals_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this goal.
+        required: true
+      tags:
+      - goals
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedGoalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedGoalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedGoalRequest'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+          description: ''
+    delete:
+      operationId: goals_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this goal.
+        required: true
+      tags:
+      - goals
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/business-hub/integrations/status/:
+    get:
+      operationId: integrations_status_list
+      tags:
+      - integrations
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IntegrationStatus'
+          description: ''
+    post:
+      operationId: integrations_status_create
+      tags:
+      - integrations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationStatusRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IntegrationStatusRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IntegrationStatusRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationStatus'
+          description: ''
+  /api/v1/business-hub/integrations/status/{id}/:
+    get:
+      operationId: integrations_status_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this integration status.
+        required: true
+      tags:
+      - integrations
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationStatus'
+          description: ''
+    put:
+      operationId: integrations_status_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this integration status.
+        required: true
+      tags:
+      - integrations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationStatusRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IntegrationStatusRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IntegrationStatusRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationStatus'
+          description: ''
+    patch:
+      operationId: integrations_status_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this integration status.
+        required: true
+      tags:
+      - integrations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedIntegrationStatusRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedIntegrationStatusRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedIntegrationStatusRequest'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationStatus'
+          description: ''
+    delete:
+      operationId: integrations_status_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this integration status.
+        required: true
+      tags:
+      - integrations
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/business-hub/overview/:
+    get:
+      operationId: overview_retrieve
+      tags:
+      - overview
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessHubOverview'
+          description: ''
+  /api/v1/business-hub/profiles/:
+    get:
+      operationId: profiles_list
+      tags:
+      - profiles
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessProfile'
+          description: ''
+    post:
+      operationId: profiles_create
+      tags:
+      - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusinessProfileRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BusinessProfileRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BusinessProfileRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessProfile'
+          description: ''
+  /api/v1/business-hub/profiles/{id}/:
+    get:
+      operationId: profiles_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this business profile.
+        required: true
+      tags:
+      - profiles
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessProfile'
+          description: ''
+    put:
+      operationId: profiles_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this business profile.
+        required: true
+      tags:
+      - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusinessProfileRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BusinessProfileRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BusinessProfileRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessProfile'
+          description: ''
+    patch:
+      operationId: profiles_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this business profile.
+        required: true
+      tags:
+      - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBusinessProfileRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBusinessProfileRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBusinessProfileRequest'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessProfile'
+          description: ''
+    delete:
+      operationId: profiles_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this business profile.
+        required: true
+      tags:
+      - profiles
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/business-hub/roadmap/:
+    get:
+      operationId: roadmap_list
+      tags:
+      - roadmap
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoadmapStage'
+          description: ''
+  /api/v1/business-hub/roadmap/{id}/:
+    get:
+      operationId: roadmap_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this roadmap stage.
+        required: true
+      tags:
+      - roadmap
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoadmapStage'
+          description: ''
+  /api/v1/business-hub/roadmap/flat_checklist/:
+    get:
+      operationId: roadmap_flat_checklist_list
+      tags:
+      - roadmap
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChecklistItem'
+          description: ''
+  /api/v1/business-hub/score/snapshots/:
+    get:
+      operationId: score_snapshots_list
+      tags:
+      - score
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScoreSnapshot'
+          description: ''
+    post:
+      operationId: score_snapshots_create
+      tags:
+      - score
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScoreSnapshotRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ScoreSnapshotRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ScoreSnapshotRequest'
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoreSnapshot'
+          description: ''
+  /api/v1/business-hub/score/snapshots/{id}/:
+    get:
+      operationId: score_snapshots_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this score snapshot.
+        required: true
+      tags:
+      - score
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoreSnapshot'
+          description: ''
+    put:
+      operationId: score_snapshots_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this score snapshot.
+        required: true
+      tags:
+      - score
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScoreSnapshotRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ScoreSnapshotRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ScoreSnapshotRequest'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoreSnapshot'
+          description: ''
+    patch:
+      operationId: score_snapshots_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this score snapshot.
+        required: true
+      tags:
+      - score
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedScoreSnapshotRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedScoreSnapshotRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedScoreSnapshotRequest'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoreSnapshot'
+          description: ''
+    delete:
+      operationId: score_snapshots_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this score snapshot.
+        required: true
+      tags:
+      - score
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/business-hub/score/snapshots/recalculate/:
+    post:
+      operationId: score_snapshots_recalculate_create
+      tags:
+      - score
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScoreSnapshotRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ScoreSnapshotRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ScoreSnapshotRequest'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoreSnapshot'
+          description: ''
+  /api/v1/business-hub/vault/documents/:
+    get:
+      operationId: vault_documents_list
+      tags:
+      - vault
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VaultDocument'
+          description: ''
+    post:
+      operationId: vault_documents_create
+      tags:
+      - vault
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VaultDocumentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VaultDocumentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VaultDocumentRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VaultDocument'
+          description: ''
+  /api/v1/business-hub/vault/documents/{id}/:
+    get:
+      operationId: vault_documents_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this vault document.
+        required: true
+      tags:
+      - vault
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VaultDocument'
+          description: ''
+    put:
+      operationId: vault_documents_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this vault document.
+        required: true
+      tags:
+      - vault
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VaultDocumentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VaultDocumentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VaultDocumentRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VaultDocument'
+          description: ''
+    patch:
+      operationId: vault_documents_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this vault document.
+        required: true
+      tags:
+      - vault
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedVaultDocumentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedVaultDocumentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedVaultDocumentRequest'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VaultDocument'
+          description: ''
+    delete:
+      operationId: vault_documents_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this vault document.
+        required: true
+      tags:
+      - vault
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/v1/business-hub/xp/transactions/:
+    get:
+      operationId: xp_transactions_list
+      tags:
+      - xp
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/XPTransaction'
+          description: ''
+  /api/v1/business-hub/xp/transactions/{id}/:
+    get:
+      operationId: xp_transactions_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this xp transaction.
+        required: true
+      tags:
+      - xp
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/XPTransaction'
+          description: ''
+  /health/live:
+    get:
+      operationId: health_live_retrieve
+      tags:
+      - health
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthLiveResponse'
+          description: ''
+  /health/ready:
+    get:
+      operationId: health_ready_retrieve
+      tags:
+      - health
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthReadyResponse'
+          description: ''
+components:
+  schemas:
+    AIInsight:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 180
+        recommendation:
+          type: string
+        related_action:
+          type: string
+          maxLength: 120
+        status:
+          type: string
+          maxLength: 30
+        feedback:
+          type: string
+          maxLength: 30
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - recommendation
+      - title
+    AIInsightRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 180
+        recommendation:
+          type: string
+          minLength: 1
+        related_action:
+          type: string
+          maxLength: 120
+        status:
+          type: string
+          minLength: 1
+          maxLength: 30
+        feedback:
+          type: string
+          maxLength: 30
+      required:
+      - recommendation
+      - title
+    Achievement:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        key:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+        title:
+          type: string
+          maxLength: 120
+        description:
+          type: string
+        unlocked_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - key
+      - title
+    BusinessHubOverview:
+      type: object
+      properties:
+        profile:
+          allOf:
+          - $ref: '#/components/schemas/BusinessProfile'
+          nullable: true
+        level:
+          type: object
+          additionalProperties: {}
+        score:
+          allOf:
+          - $ref: '#/components/schemas/ScoreSnapshot'
+          nullable: true
+        today_quests:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChecklistItem'
+        integrations:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationStatus'
+        achievements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Achievement'
+        quick_actions:
+          type: array
+          items:
+            type: string
+      required:
+      - achievements
+      - integrations
+      - level
+      - profile
+      - quick_actions
+      - score
+      - today_quests
+    BusinessProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        business_name:
+          type: string
+          maxLength: 180
+        industry:
+          type: string
+          maxLength: 120
+        business_stage:
+          type: string
+          maxLength: 80
+        city:
+          type: string
+          maxLength: 120
+        phone:
+          type: string
+          maxLength: 60
+        website_url:
+          type: string
+          format: uri
+          maxLength: 200
+        description:
+          type: string
+        completion_percent:
+          type: integer
+          readOnly: true
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - business_name
+      - completion_percent
+      - created_at
+      - id
+      - updated_at
+    BusinessProfileRequest:
+      type: object
+      properties:
+        business_name:
+          type: string
+          minLength: 1
+          maxLength: 180
+        industry:
+          type: string
+          maxLength: 120
+        business_stage:
+          type: string
+          minLength: 1
+          maxLength: 80
+        city:
+          type: string
+          maxLength: 120
+        phone:
+          type: string
+          maxLength: 60
+        website_url:
+          type: string
+          format: uri
+          maxLength: 200
+        description:
+          type: string
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+      required:
+      - business_name
+    CalendarEvent:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 180
+        event_type:
+          type: string
+          maxLength: 60
+        starts_at:
+          type: string
+          format: date-time
+        reminder_enabled:
+          type: boolean
+        notification_intent_id:
+          type: string
+          maxLength: 120
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - starts_at
+      - title
+      - updated_at
+    CalendarEventRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 180
+        event_type:
+          type: string
+          minLength: 1
+          maxLength: 60
+        starts_at:
+          type: string
+          format: date-time
+        reminder_enabled:
+          type: boolean
+        notification_intent_id:
+          type: string
+          maxLength: 120
+      required:
+      - starts_at
+      - title
+    ChecklistCompletion:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        item:
+          type: integer
+        item_title:
+          type: string
+          readOnly: true
+        status:
+          type: string
+          readOnly: true
+        evidence_file_id:
+          type: string
+          maxLength: 120
+        note:
+          type: string
+        completed_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - completed_at
+      - id
+      - item
+      - item_title
+      - status
+    ChecklistCompletionRequest:
+      type: object
+      properties:
+        item:
+          type: integer
+        evidence_file_id:
+          type: string
+          maxLength: 120
+        note:
+          type: string
+      required:
+      - item
+    ChecklistItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        key:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+        stage:
+          type: integer
+        stage_name:
+          type: string
+          readOnly: true
+        title:
+          type: string
+          maxLength: 180
+        category:
+          type: string
+          maxLength: 80
+        requirement_type:
+          $ref: '#/components/schemas/RequirementTypeEnum'
+        xp_reward:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        score_dimension:
+          type: string
+          maxLength: 80
+        is_premium:
+          type: boolean
+        completed:
+          type: boolean
+          readOnly: true
+      required:
+      - category
+      - completed
+      - id
+      - key
+      - requirement_type
+      - stage
+      - stage_name
+      - title
+    DocumentTypeEnum:
+      enum:
+      - nib
+      - npwp
+      - sop
+      - template
+      - finance
+      - legal
+      - other
+      type: string
+      description: |-
+        * `nib` - NIB
+        * `npwp` - NPWP
+        * `sop` - SOP
+        * `template` - Template
+        * `finance` - Finance
+        * `legal` - Legal
+        * `other` - Other
+    Goal:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 180
+        metric:
+          type: string
+          maxLength: 80
+        target_value:
+          type: string
+          maxLength: 80
+        due_date:
+          type: string
+          format: date
+          nullable: true
+        status:
+          type: string
+          maxLength: 30
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - title
+      - updated_at
+    GoalRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 180
+        metric:
+          type: string
+          maxLength: 80
+        target_value:
+          type: string
+          maxLength: 80
+        due_date:
+          type: string
+          format: date
+          nullable: true
+        status:
+          type: string
+          minLength: 1
+          maxLength: 30
+      required:
+      - title
+    HealthLiveResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        service:
+          type: string
+      required:
+      - service
+      - status
+    HealthReadyResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        checks:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - checks
+      - status
+    IntegrationStatus:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        service:
+          type: string
+          maxLength: 60
+        status:
+          type: string
+          maxLength: 30
+        last_checked_at:
+          type: string
+          format: date-time
+        details: {}
+      required:
+      - id
+      - service
+    IntegrationStatusRequest:
+      type: object
+      properties:
+        service:
+          type: string
+          minLength: 1
+          maxLength: 60
+        status:
+          type: string
+          minLength: 1
+          maxLength: 30
+        last_checked_at:
+          type: string
+          format: date-time
+        details: {}
+      required:
+      - service
+    PatchedAIInsightRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 180
+        recommendation:
+          type: string
+          minLength: 1
+        related_action:
+          type: string
+          maxLength: 120
+        status:
+          type: string
+          minLength: 1
+          maxLength: 30
+        feedback:
+          type: string
+          maxLength: 30
+    PatchedBusinessProfileRequest:
+      type: object
+      properties:
+        business_name:
+          type: string
+          minLength: 1
+          maxLength: 180
+        industry:
+          type: string
+          maxLength: 120
+        business_stage:
+          type: string
+          minLength: 1
+          maxLength: 80
+        city:
+          type: string
+          maxLength: 120
+        phone:
+          type: string
+          maxLength: 60
+        website_url:
+          type: string
+          format: uri
+          maxLength: 200
+        description:
+          type: string
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+    PatchedCalendarEventRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 180
+        event_type:
+          type: string
+          minLength: 1
+          maxLength: 60
+        starts_at:
+          type: string
+          format: date-time
+        reminder_enabled:
+          type: boolean
+        notification_intent_id:
+          type: string
+          maxLength: 120
+    PatchedChecklistCompletionRequest:
+      type: object
+      properties:
+        item:
+          type: integer
+        evidence_file_id:
+          type: string
+          maxLength: 120
+        note:
+          type: string
+    PatchedGoalRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 180
+        metric:
+          type: string
+          maxLength: 80
+        target_value:
+          type: string
+          maxLength: 80
+        due_date:
+          type: string
+          format: date
+          nullable: true
+        status:
+          type: string
+          minLength: 1
+          maxLength: 30
+    PatchedIntegrationStatusRequest:
+      type: object
+      properties:
+        service:
+          type: string
+          minLength: 1
+          maxLength: 60
+        status:
+          type: string
+          minLength: 1
+          maxLength: 30
+        last_checked_at:
+          type: string
+          format: date-time
+        details: {}
+    PatchedScoreSnapshotRequest:
+      type: object
+      properties:
+        version:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        overall_score:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        dimensions: {}
+        explanation: {}
+    PatchedVaultDocumentRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 180
+        document_type:
+          $ref: '#/components/schemas/DocumentTypeEnum'
+        file_id:
+          type: string
+          minLength: 1
+          maxLength: 120
+        source:
+          type: string
+          minLength: 1
+          maxLength: 80
+        expires_at:
+          type: string
+          format: date
+          nullable: true
+        linked_checklist_item:
+          type: integer
+          nullable: true
+    RequirementTypeEnum:
+      enum:
+      - manual_checklist
+      - file_evidence
+      - website_status
+      - accounting_fact
+      - profile_field
+      - ai_review
+      - admin_verification
+      type: string
+      description: |-
+        * `manual_checklist` - Manual checklist
+        * `file_evidence` - File evidence
+        * `website_status` - Website status
+        * `accounting_fact` - Accounting fact
+        * `profile_field` - Profile field
+        * `ai_review` - AI review
+        * `admin_verification` - Admin verification
+    RoadmapStage:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        key:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+        order:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        name:
+          type: string
+          maxLength: 80
+        definition:
+          type: string
+        xp_required:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        is_future:
+          type: boolean
+        checklist_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChecklistItem'
+          readOnly: true
+      required:
+      - checklist_items
+      - definition
+      - id
+      - key
+      - name
+      - order
+    ScoreSnapshot:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        version:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        overall_score:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        dimensions: {}
+        explanation: {}
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+    ScoreSnapshotRequest:
+      type: object
+      properties:
+        version:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        overall_score:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        dimensions: {}
+        explanation: {}
+    VaultDocument:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 180
+        document_type:
+          $ref: '#/components/schemas/DocumentTypeEnum'
+        file_id:
+          type: string
+          maxLength: 120
+        source:
+          type: string
+          maxLength: 80
+        expires_at:
+          type: string
+          format: date
+          nullable: true
+        linked_checklist_item:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - file_id
+      - id
+      - title
+      - updated_at
+    VaultDocumentRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 180
+        document_type:
+          $ref: '#/components/schemas/DocumentTypeEnum'
+        file_id:
+          type: string
+          minLength: 1
+          maxLength: 120
+        source:
+          type: string
+          minLength: 1
+          maxLength: 80
+        expires_at:
+          type: string
+          format: date
+          nullable: true
+        linked_checklist_item:
+          type: integer
+          nullable: true
+      required:
+      - file_id
+      - title
+    XPTransaction:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        source_type:
+          type: string
+          maxLength: 80
+        source_id:
+          type: string
+          maxLength: 120
+        amount:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        reason:
+          type: string
+          maxLength: 180
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - amount
+      - created_at
+      - id
+      - reason
+      - source_id
+      - source_type
