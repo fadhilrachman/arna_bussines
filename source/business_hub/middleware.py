@@ -23,6 +23,16 @@ def unauthorized(message: str) -> JsonResponse:
     return JsonResponse({"error": "unauthorized", "message": message}, status=401)
 
 
+def missing_tenant_id() -> JsonResponse:
+    return JsonResponse(
+        {
+            "error": "missing_required_query_param",
+            "message": "Missing required query param: tenant_id",
+        },
+        status=400,
+    )
+
+
 def decode_base64url_json(value: str) -> dict | None:
     try:
         padding = "=" * (-len(value) % 4)
@@ -91,10 +101,14 @@ class TenantContextMiddleware:
         if request.path.startswith(self.PUBLIC_PREFIXES):
             return self.get_response(request)
 
+        tenant_id = request.GET.get("tenant_id")
+        if not tenant_id:
+            return missing_tenant_id()
+
         if settings.DEV_AUTH_BYPASS:
             request.business_context = build_context(
                 organization_id=request.headers.get("X-Organization-Id", "org_demo"),
-                tenant_id=request.GET.get("tenant_id") or request.headers.get("X-Tenant-Id", "tenant_demo"),
+                tenant_id=tenant_id,
                 user_id=request.headers.get("X-User-Id", "user_demo"),
                 request=request,
             )
@@ -117,6 +131,8 @@ class TenantContextMiddleware:
         if not header or not payload:
             return unauthorized("Invalid token payload.")
 
+        if not is_valid_signature(token_parts):
+            return unauthorized("Invalid token signature.")
 
         exp = payload.get("exp")
         if not isinstance(exp, int):
@@ -132,16 +148,6 @@ class TenantContextMiddleware:
         organization_id = payload.get("org_id")
         if not isinstance(organization_id, str) or not organization_id:
             return unauthorized("Token org_id is required.")
-
-        tenant_id = request.GET.get("tenant_id")
-        if not tenant_id:
-            return JsonResponse(
-                {
-                    "error": "missing_required_query_param",
-                    "message": "Missing required query param: tenant_id",
-                },
-                status=400,
-            )
 
         request.business_context = build_context(
             organization_id=organization_id,

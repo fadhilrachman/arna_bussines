@@ -26,11 +26,17 @@ python manage.py seed_business_hub
 python manage.py runserver 0.0.0.0:8000
 ```
 
-Local development memakai `DEV_AUTH_BYPASS=True` secara default saat `DEBUG=True`. Untuk mensimulasikan tenant lain, kirim header:
+Local development memakai `DEV_AUTH_BYPASS=True` secara default saat `DEBUG=True`.
+Semua endpoint Business Hub tetap wajib menerima `tenant_id` sebagai query parameter:
+
+```http
+GET /api/v1/business-hub/overview/?tenant_id=tenant_demo
+```
+
+Untuk mensimulasikan organization/user lain di local development, kirim header:
 
 ```http
 X-Organization-Id: org_demo
-X-Tenant-Id: tenant_demo
 X-User-Id: user_demo
 X-Plan: free
 ```
@@ -40,15 +46,15 @@ X-Plan: free
 - `GET /health/live`
 - `GET /health/ready`
 - `GET /api/schema/`
-- `GET /api/v1/business-hub/overview/`
-- `GET /api/v1/business-hub/roadmap/`
-- `GET /api/v1/business-hub/roadmap/flat_checklist/`
-- `POST /api/v1/business-hub/checklist/completions/`
-- `POST /api/v1/business-hub/score/snapshots/recalculate/`
-- `GET|POST /api/v1/business-hub/vault/documents/`
-- `GET|POST /api/v1/business-hub/goals/`
-- `GET|POST /api/v1/business-hub/calendar/events/`
-- `GET|POST /api/v1/business-hub/ai/insights/`
+- `GET /api/v1/business-hub/overview/?tenant_id=tenant_demo`
+- `GET /api/v1/business-hub/roadmap/?tenant_id=tenant_demo`
+- `GET /api/v1/business-hub/roadmap/flat_checklist/?tenant_id=tenant_demo`
+- `POST /api/v1/business-hub/checklist/completions/?tenant_id=tenant_demo`
+- `POST /api/v1/business-hub/score/snapshots/recalculate/?tenant_id=tenant_demo`
+- `GET|POST /api/v1/business-hub/vault/documents/?tenant_id=tenant_demo`
+- `GET|POST /api/v1/business-hub/goals/?tenant_id=tenant_demo`
+- `GET|POST /api/v1/business-hub/calendar/events/?tenant_id=tenant_demo`
+- `GET|POST /api/v1/business-hub/ai/insights/?tenant_id=tenant_demo`
 
 ## Scope Implemented
 

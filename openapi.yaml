@@ -12,6 +12,7 @@ paths:
       tags:
       - achievements
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -22,10 +23,25 @@ paths:
                 items:
                   $ref: '#/components/schemas/Achievement'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/achievements/{id}/:
     get:
       operationId: achievements_retrieve
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -36,6 +52,7 @@ paths:
       tags:
       - achievements
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -50,6 +67,7 @@ paths:
       tags:
       - ai
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -60,6 +78,14 @@ paths:
                 items:
                   $ref: '#/components/schemas/AIInsight'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
     post:
       operationId: ai_insights_create
       tags:
@@ -77,6 +103,7 @@ paths:
               $ref: '#/components/schemas/AIInsightRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '201':
@@ -85,10 +112,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/AIInsight'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/ai/insights/{id}/:
     get:
       operationId: ai_insights_retrieve
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -99,6 +141,7 @@ paths:
       tags:
       - ai
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -110,6 +153,13 @@ paths:
     put:
       operationId: ai_insights_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -132,6 +182,7 @@ paths:
               $ref: '#/components/schemas/AIInsightRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -143,6 +194,13 @@ paths:
     patch:
       operationId: ai_insights_partial_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -164,6 +222,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedAIInsightRequest'
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -175,6 +234,13 @@ paths:
     delete:
       operationId: ai_insights_destroy
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -185,6 +251,7 @@ paths:
       tags:
       - ai
       security:
+      - bearerAuth: []
       - {}
       responses:
         '204':
@@ -195,6 +262,7 @@ paths:
       tags:
       - calendar
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -205,6 +273,14 @@ paths:
                 items:
                   $ref: '#/components/schemas/CalendarEvent'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
     post:
       operationId: calendar_events_create
       tags:
@@ -222,6 +298,7 @@ paths:
               $ref: '#/components/schemas/CalendarEventRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '201':
@@ -230,10 +307,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/CalendarEvent'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/calendar/events/{id}/:
     get:
       operationId: calendar_events_retrieve
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -244,6 +336,7 @@ paths:
       tags:
       - calendar
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -255,6 +348,13 @@ paths:
     put:
       operationId: calendar_events_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -277,6 +377,7 @@ paths:
               $ref: '#/components/schemas/CalendarEventRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -288,6 +389,13 @@ paths:
     patch:
       operationId: calendar_events_partial_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -309,6 +417,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedCalendarEventRequest'
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -320,6 +429,13 @@ paths:
     delete:
       operationId: calendar_events_destroy
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -330,6 +446,7 @@ paths:
       tags:
       - calendar
       security:
+      - bearerAuth: []
       - {}
       responses:
         '204':
@@ -340,6 +457,7 @@ paths:
       tags:
       - checklist
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -350,6 +468,14 @@ paths:
                 items:
                   $ref: '#/components/schemas/ChecklistCompletion'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
     post:
       operationId: checklist_completions_create
       tags:
@@ -367,6 +493,7 @@ paths:
               $ref: '#/components/schemas/ChecklistCompletionRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '201':
@@ -375,10 +502,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/ChecklistCompletion'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/checklist/completions/{id}/:
     get:
       operationId: checklist_completions_retrieve
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -389,6 +531,7 @@ paths:
       tags:
       - checklist
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -400,6 +543,13 @@ paths:
     put:
       operationId: checklist_completions_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -422,6 +572,7 @@ paths:
               $ref: '#/components/schemas/ChecklistCompletionRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -433,6 +584,13 @@ paths:
     patch:
       operationId: checklist_completions_partial_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -454,6 +612,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedChecklistCompletionRequest'
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -465,6 +624,13 @@ paths:
     delete:
       operationId: checklist_completions_destroy
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -475,6 +641,7 @@ paths:
       tags:
       - checklist
       security:
+      - bearerAuth: []
       - {}
       responses:
         '204':
@@ -485,6 +652,7 @@ paths:
       tags:
       - goals
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -495,6 +663,14 @@ paths:
                 items:
                   $ref: '#/components/schemas/Goal'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
     post:
       operationId: goals_create
       tags:
@@ -512,6 +688,7 @@ paths:
               $ref: '#/components/schemas/GoalRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '201':
@@ -520,10 +697,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/Goal'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/goals/{id}/:
     get:
       operationId: goals_retrieve
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -534,6 +726,7 @@ paths:
       tags:
       - goals
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -545,6 +738,13 @@ paths:
     put:
       operationId: goals_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -567,6 +767,7 @@ paths:
               $ref: '#/components/schemas/GoalRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -578,6 +779,13 @@ paths:
     patch:
       operationId: goals_partial_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -599,6 +807,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedGoalRequest'
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -610,6 +819,13 @@ paths:
     delete:
       operationId: goals_destroy
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -620,6 +836,7 @@ paths:
       tags:
       - goals
       security:
+      - bearerAuth: []
       - {}
       responses:
         '204':
@@ -630,6 +847,7 @@ paths:
       tags:
       - integrations
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -640,6 +858,14 @@ paths:
                 items:
                   $ref: '#/components/schemas/IntegrationStatus'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
     post:
       operationId: integrations_status_create
       tags:
@@ -657,6 +883,7 @@ paths:
               $ref: '#/components/schemas/IntegrationStatusRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '201':
@@ -665,10 +892,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/IntegrationStatus'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/integrations/status/{id}/:
     get:
       operationId: integrations_status_retrieve
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -679,6 +921,7 @@ paths:
       tags:
       - integrations
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -690,6 +933,13 @@ paths:
     put:
       operationId: integrations_status_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -712,6 +962,7 @@ paths:
               $ref: '#/components/schemas/IntegrationStatusRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -723,6 +974,13 @@ paths:
     patch:
       operationId: integrations_status_partial_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -744,6 +1002,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedIntegrationStatusRequest'
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -755,6 +1014,13 @@ paths:
     delete:
       operationId: integrations_status_destroy
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -765,6 +1031,7 @@ paths:
       tags:
       - integrations
       security:
+      - bearerAuth: []
       - {}
       responses:
         '204':
@@ -775,6 +1042,7 @@ paths:
       tags:
       - overview
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -783,12 +1051,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/BusinessHubOverview'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/profiles/:
     get:
       operationId: profiles_list
       tags:
       - profiles
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -799,6 +1076,14 @@ paths:
                 items:
                   $ref: '#/components/schemas/BusinessProfile'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
     post:
       operationId: profiles_create
       tags:
@@ -816,6 +1101,7 @@ paths:
               $ref: '#/components/schemas/BusinessProfileRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '201':
@@ -824,10 +1110,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/BusinessProfile'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/profiles/{id}/:
     get:
       operationId: profiles_retrieve
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -838,6 +1139,7 @@ paths:
       tags:
       - profiles
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -849,6 +1151,13 @@ paths:
     put:
       operationId: profiles_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -871,6 +1180,7 @@ paths:
               $ref: '#/components/schemas/BusinessProfileRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -882,6 +1192,13 @@ paths:
     patch:
       operationId: profiles_partial_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -903,6 +1220,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedBusinessProfileRequest'
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -914,6 +1232,13 @@ paths:
     delete:
       operationId: profiles_destroy
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -924,6 +1249,7 @@ paths:
       tags:
       - profiles
       security:
+      - bearerAuth: []
       - {}
       responses:
         '204':
@@ -934,6 +1260,7 @@ paths:
       tags:
       - roadmap
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -944,10 +1271,25 @@ paths:
                 items:
                   $ref: '#/components/schemas/RoadmapStage'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/roadmap/{id}/:
     get:
       operationId: roadmap_retrieve
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -957,6 +1299,7 @@ paths:
       tags:
       - roadmap
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -971,6 +1314,7 @@ paths:
       tags:
       - roadmap
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -981,12 +1325,21 @@ paths:
                 items:
                   $ref: '#/components/schemas/ChecklistItem'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/score/snapshots/:
     get:
       operationId: score_snapshots_list
       tags:
       - score
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -997,6 +1350,14 @@ paths:
                 items:
                   $ref: '#/components/schemas/ScoreSnapshot'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
     post:
       operationId: score_snapshots_create
       tags:
@@ -1013,6 +1374,7 @@ paths:
             schema:
               $ref: '#/components/schemas/ScoreSnapshotRequest'
       security:
+      - bearerAuth: []
       - {}
       responses:
         '201':
@@ -1021,10 +1383,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScoreSnapshot'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/score/snapshots/{id}/:
     get:
       operationId: score_snapshots_retrieve
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1035,6 +1412,7 @@ paths:
       tags:
       - score
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -1046,6 +1424,13 @@ paths:
     put:
       operationId: score_snapshots_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1067,6 +1452,7 @@ paths:
             schema:
               $ref: '#/components/schemas/ScoreSnapshotRequest'
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -1078,6 +1464,13 @@ paths:
     patch:
       operationId: score_snapshots_partial_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1099,6 +1492,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedScoreSnapshotRequest'
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -1110,6 +1504,13 @@ paths:
     delete:
       operationId: score_snapshots_destroy
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1120,6 +1521,7 @@ paths:
       tags:
       - score
       security:
+      - bearerAuth: []
       - {}
       responses:
         '204':
@@ -1141,6 +1543,7 @@ paths:
             schema:
               $ref: '#/components/schemas/ScoreSnapshotRequest'
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -1149,12 +1552,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/ScoreSnapshot'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/vault/documents/:
     get:
       operationId: vault_documents_list
       tags:
       - vault
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -1165,6 +1577,14 @@ paths:
                 items:
                   $ref: '#/components/schemas/VaultDocument'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
     post:
       operationId: vault_documents_create
       tags:
@@ -1182,6 +1602,7 @@ paths:
               $ref: '#/components/schemas/VaultDocumentRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '201':
@@ -1190,10 +1611,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/VaultDocument'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/vault/documents/{id}/:
     get:
       operationId: vault_documents_retrieve
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1204,6 +1640,7 @@ paths:
       tags:
       - vault
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -1215,6 +1652,13 @@ paths:
     put:
       operationId: vault_documents_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1237,6 +1681,7 @@ paths:
               $ref: '#/components/schemas/VaultDocumentRequest'
         required: true
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -1248,6 +1693,13 @@ paths:
     patch:
       operationId: vault_documents_partial_update
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1269,6 +1721,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedVaultDocumentRequest'
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -1280,6 +1733,13 @@ paths:
     delete:
       operationId: vault_documents_destroy
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1290,6 +1750,7 @@ paths:
       tags:
       - vault
       security:
+      - bearerAuth: []
       - {}
       responses:
         '204':
@@ -1300,6 +1761,7 @@ paths:
       tags:
       - xp
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -1310,10 +1772,25 @@ paths:
                 items:
                   $ref: '#/components/schemas/XPTransaction'
           description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
   /api/v1/business-hub/xp/transactions/{id}/:
     get:
       operationId: xp_transactions_retrieve
       parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1324,6 +1801,7 @@ paths:
       tags:
       - xp
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -1338,6 +1816,7 @@ paths:
       tags:
       - health
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -1352,6 +1831,7 @@ paths:
       tags:
       - health
       security:
+      - bearerAuth: []
       - {}
       responses:
         '200':
@@ -1681,9 +2161,8 @@ components:
           $ref: '#/components/schemas/RequirementTypeEnum'
         xp_reward:
           type: integer
-          maximum: 9223372036854775807
+          maximum: 2147483647
           minimum: 0
-          format: int64
         score_dimension:
           type: string
           maxLength: 80
@@ -1957,14 +2436,12 @@ components:
       properties:
         version:
           type: integer
-          maximum: 9223372036854775807
+          maximum: 2147483647
           minimum: 0
-          format: int64
         overall_score:
           type: integer
-          maximum: 9223372036854775807
+          maximum: 2147483647
           minimum: 0
-          format: int64
         dimensions: {}
         explanation: {}
     PatchedVaultDocumentRequest:
@@ -2021,9 +2498,8 @@ components:
           pattern: ^[-a-zA-Z0-9_]+$
         order:
           type: integer
-          maximum: 9223372036854775807
+          maximum: 2147483647
           minimum: 0
-          format: int64
         name:
           type: string
           maxLength: 80
@@ -2031,9 +2507,8 @@ components:
           type: string
         xp_required:
           type: integer
-          maximum: 9223372036854775807
+          maximum: 2147483647
           minimum: 0
-          format: int64
         is_future:
           type: boolean
         checklist_items:
@@ -2057,14 +2532,12 @@ components:
           readOnly: true
         version:
           type: integer
-          maximum: 9223372036854775807
+          maximum: 2147483647
           minimum: 0
-          format: int64
         overall_score:
           type: integer
-          maximum: 9223372036854775807
+          maximum: 2147483647
           minimum: 0
-          format: int64
         dimensions: {}
         explanation: {}
         created_at:
@@ -2079,14 +2552,12 @@ components:
       properties:
         version:
           type: integer
-          maximum: 9223372036854775807
+          maximum: 2147483647
           minimum: 0
-          format: int64
         overall_score:
           type: integer
-          maximum: 9223372036854775807
+          maximum: 2147483647
           minimum: 0
-          format: int64
         dimensions: {}
         explanation: {}
     VaultDocument:
@@ -2170,9 +2641,8 @@ components:
           maxLength: 120
         amount:
           type: integer
-          maximum: 9223372036854775807
+          maximum: 2147483647
           minimum: 0
-          format: int64
         reason:
           type: string
           maxLength: 180
@@ -2187,3 +2657,8 @@ components:
       - reason
       - source_id
       - source_type
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

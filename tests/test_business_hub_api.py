@@ -33,15 +33,42 @@ class BusinessHubDevAuthBypassTests(TestCase):
 
     def test_local_dev_can_use_tenant_headers_without_authorization(self):
         response = self.client.get(
-            "/api/v1/business-hub/overview/",
+            "/api/v1/business-hub/overview/?tenant_id=tenant_test",
             HTTP_X_ORGANIZATION_ID="org_test",
-            HTTP_X_TENANT_ID="tenant_test",
             HTTP_X_USER_ID="user_test",
             HTTP_X_PLAN="free",
         )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["level"]["level"], "Level 1")
+
+    def test_local_dev_requires_tenant_id_query_param(self):
+        response = self.client.get(
+            "/api/v1/business-hub/overview/",
+            HTTP_X_ORGANIZATION_ID="org_test",
+            HTTP_X_USER_ID="user_test",
+            HTTP_X_PLAN="free",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["error"], "missing_required_query_param")
+
+
+class BusinessHubSchemaTests(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+    def test_business_hub_operations_include_required_tenant_id_query_param(self):
+        response = self.client.get("/api/schema/?format=json")
+
+        self.assertEqual(response.status_code, 200)
+        overview_operation = response.json()["paths"]["/api/v1/business-hub/overview/"]["get"]
+        tenant_parameter = next(
+            parameter
+            for parameter in overview_operation["parameters"]
+            if parameter["name"] == "tenant_id" and parameter["in"] == "query"
+        )
+        self.assertTrue(tenant_parameter["required"])
 
 
 @override_settings(JWT_SECRET="test-secret", DEV_AUTH_BYPASS=False)

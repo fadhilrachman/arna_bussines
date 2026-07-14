@@ -165,6 +165,10 @@ SPECTACULAR_SETTINGS = {
         "displayRequestDuration": True,
         "filter": True,
     },
+    "POSTPROCESSING_HOOKS": [
+        "drf_spectacular.hooks.postprocess_schema_enums",
+        "business_hub.schema.add_tenant_id_query_parameter",
+    ],
     "APPEND_COMPONENTS": {
         "securitySchemes": {
             "bearerAuth": {
