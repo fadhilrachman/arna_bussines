@@ -20,6 +20,8 @@ class CorsMiddleware:
             response["Access-Control-Allow-Headers"] = self.allow_headers(request)
             if settings.CORS_ALLOW_CREDENTIALS:
                 response["Access-Control-Allow-Credentials"] = "true"
+            if self.is_private_network_preflight(request) and settings.CORS_ALLOW_PRIVATE_NETWORK:
+                response["Access-Control-Allow-Private-Network"] = "true"
             if settings.CORS_PREFLIGHT_MAX_AGE:
                 response["Access-Control-Max-Age"] = str(settings.CORS_PREFLIGHT_MAX_AGE)
 
@@ -27,6 +29,9 @@ class CorsMiddleware:
 
     def is_preflight(self, request) -> bool:
         return request.method == "OPTIONS" and bool(request.headers.get("Access-Control-Request-Method"))
+
+    def is_private_network_preflight(self, request) -> bool:
+        return request.headers.get("Access-Control-Request-Private-Network") == "true"
 
     def is_allowed_origin(self, request) -> bool:
         if settings.CORS_ALLOW_ALL_ORIGINS and settings.ENVIRONMENT != "production":

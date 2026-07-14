@@ -35,6 +35,7 @@ class BusinessHubCorsTests(TestCase):
             HTTP_ORIGIN="http://localhost:3001",
             HTTP_ACCESS_CONTROL_REQUEST_METHOD="GET",
             HTTP_ACCESS_CONTROL_REQUEST_HEADERS="authorization,content-type,baggage,sentry-trace,x-tenant-id",
+            HTTP_ACCESS_CONTROL_REQUEST_PRIVATE_NETWORK="true",
         )
 
         self.assertEqual(response.status_code, 204)
@@ -42,6 +43,7 @@ class BusinessHubCorsTests(TestCase):
         self.assertIn("authorization", response["Access-Control-Allow-Headers"])
         self.assertIn("baggage", response["Access-Control-Allow-Headers"])
         self.assertEqual(response["Access-Control-Allow-Credentials"], "true")
+        self.assertEqual(response["Access-Control-Allow-Private-Network"], "true")
         self.assertIn("GET", response["Access-Control-Allow-Methods"])
 
 
