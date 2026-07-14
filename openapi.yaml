@@ -30,7 +30,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/achievements/{id}/:
     get:
       operationId: achievements_retrieve
@@ -41,7 +40,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -85,7 +83,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
     post:
       operationId: ai_insights_create
       tags:
@@ -119,7 +116,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/ai/insights/{id}/:
     get:
       operationId: ai_insights_retrieve
@@ -130,7 +126,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -159,7 +154,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -200,7 +194,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -240,7 +233,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -280,7 +272,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
     post:
       operationId: calendar_events_create
       tags:
@@ -314,7 +305,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/calendar/events/{id}/:
     get:
       operationId: calendar_events_retrieve
@@ -325,7 +315,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -354,7 +343,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -395,7 +383,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -435,7 +422,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -475,7 +461,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
     post:
       operationId: checklist_completions_create
       tags:
@@ -509,7 +494,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/checklist/completions/{id}/:
     get:
       operationId: checklist_completions_retrieve
@@ -520,7 +504,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -549,7 +532,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -590,7 +572,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -630,7 +611,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -670,7 +650,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
     post:
       operationId: goals_create
       tags:
@@ -704,7 +683,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/goals/{id}/:
     get:
       operationId: goals_retrieve
@@ -715,7 +693,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -744,7 +721,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -785,7 +761,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -825,7 +800,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -865,7 +839,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
     post:
       operationId: integrations_status_create
       tags:
@@ -899,7 +872,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/integrations/status/{id}/:
     get:
       operationId: integrations_status_retrieve
@@ -910,7 +882,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -939,7 +910,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -980,7 +950,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1020,7 +989,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1058,7 +1026,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/profiles/:
     get:
       operationId: profiles_list
@@ -1083,7 +1050,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
     post:
       operationId: profiles_create
       tags:
@@ -1117,7 +1083,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/profiles/{id}/:
     get:
       operationId: profiles_retrieve
@@ -1128,7 +1093,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1157,7 +1121,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1198,7 +1161,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1238,7 +1200,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1278,7 +1239,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/roadmap/{id}/:
     get:
       operationId: roadmap_retrieve
@@ -1289,7 +1249,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1332,7 +1291,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/score/snapshots/:
     get:
       operationId: score_snapshots_list
@@ -1357,7 +1315,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
     post:
       operationId: score_snapshots_create
       tags:
@@ -1390,7 +1347,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/score/snapshots/{id}/:
     get:
       operationId: score_snapshots_retrieve
@@ -1401,7 +1357,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1430,7 +1385,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1470,7 +1424,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1510,7 +1463,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1559,7 +1511,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/vault/documents/:
     get:
       operationId: vault_documents_list
@@ -1584,7 +1535,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
     post:
       operationId: vault_documents_create
       tags:
@@ -1618,7 +1568,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/vault/documents/{id}/:
     get:
       operationId: vault_documents_retrieve
@@ -1629,7 +1578,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1658,7 +1606,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1699,7 +1646,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1739,7 +1685,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:
@@ -1779,7 +1724,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
   /api/v1/business-hub/xp/transactions/{id}/:
     get:
       operationId: xp_transactions_retrieve
@@ -1790,7 +1734,6 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
-          example: tenant_demo
       - in: path
         name: id
         schema:

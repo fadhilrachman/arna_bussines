@@ -6,7 +6,6 @@ TENANT_ID_PARAMETER = {
     "description": "Tenant identifier for scoping the Business Hub request.",
     "schema": {
         "type": "string",
-        "example": "tenant_demo",
     },
 }
 
