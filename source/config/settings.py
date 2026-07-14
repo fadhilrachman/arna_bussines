@@ -1,8 +1,13 @@
 import os
+import sys
 from pathlib import Path
+
+from django.core.exceptions import ImproperlyConfigured
+from dotenv import load_dotenv
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR.parent / ".env")
 
 
 def env_bool(name: str, default: bool = False) -> bool:
@@ -16,8 +21,22 @@ def env_list(name: str, default: str = "") -> list[str]:
 SERVICE_NAME = os.getenv("SERVICE_NAME", "arna-business-hub")
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-only-change-me")
+JWT_SECRET = os.getenv("JWT_SECRET", SECRET_KEY)
 DEBUG = env_bool("DEBUG", ENVIRONMENT == "development")
 ALLOWED_HOSTS = env_list("ALLOWED_HOSTS", "localhost,127.0.0.1")
+CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS")
+
+if os.getenv("VERCEL_URL"):
+    ALLOWED_HOSTS.extend([".vercel.app", os.getenv("VERCEL_URL")])
+    CSRF_TRUSTED_ORIGINS.append(f"https://{os.getenv('VERCEL_URL')}")
+
+if ENVIRONMENT == "production":
+    if DEBUG:
+        raise ImproperlyConfigured("DEBUG must be disabled in production.")
+    if SECRET_KEY in {"", "replace-me", "dev-only-change-me"}:
+        raise ImproperlyConfigured("SECRET_KEY must be set to a strong production value.")
+    if JWT_SECRET in {"", "replace-me", "dev-only-change-me"}:
+        raise ImproperlyConfigured("JWT_SECRET must be set to the shared production token signing secret.")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -33,6 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -62,8 +82,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
+RUNNING_TESTS = any("pytest" in arg or arg == "test" for arg in sys.argv)
 
-if os.getenv("POSTGRES_HOST"):
+if not RUNNING_TESTS and not env_bool("USE_SQLITE") and os.getenv("POSTGRES_HOST"):
+    postgres_options = {}
+    if os.getenv("POSTGRES_SSLMODE"):
+        postgres_options["sslmode"] = os.getenv("POSTGRES_SSLMODE")
+    if os.getenv("POSTGRES_CHANNEL_BINDING"):
+        postgres_options["channel_binding"] = os.getenv("POSTGRES_CHANNEL_BINDING")
+
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
@@ -72,6 +99,7 @@ if os.getenv("POSTGRES_HOST"):
             "PASSWORD": os.getenv("POSTGRES_PASSWORD", ""),
             "HOST": os.getenv("POSTGRES_HOST", "postgres"),
             "PORT": os.getenv("POSTGRES_PORT", "5432"),
+            "OPTIONS": postgres_options,
         }
     }
 else:
@@ -98,6 +126,23 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+SESSION_COOKIE_SECURE = ENVIRONMENT == "production"
+CSRF_COOKIE_SECURE = ENVIRONMENT == "production"
+SECURE_SSL_REDIRECT = env_bool("SECURE_SSL_REDIRECT", ENVIRONMENT == "production")
+SECURE_HSTS_SECONDS = int(os.getenv("SECURE_HSTS_SECONDS", "31536000" if ENVIRONMENT == "production" else "0"))
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env_bool("SECURE_HSTS_INCLUDE_SUBDOMAINS", ENVIRONMENT == "production")
+SECURE_HSTS_PRELOAD = env_bool("SECURE_HSTS_PRELOAD", ENVIRONMENT == "production")
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
@@ -120,6 +165,16 @@ SPECTACULAR_SETTINGS = {
         "displayRequestDuration": True,
         "filter": True,
     },
+    "APPEND_COMPONENTS": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+            }
+        }
+    },
+    "SECURITY": [{"bearerAuth": []}],
 }
 
 DEV_AUTH_BYPASS = env_bool("DEV_AUTH_BYPASS", ENVIRONMENT != "production")

@@ -1,4 +1,5 @@
 from django.db.models import Exists, OuterRef
+from django.db import connection
 from django.http import JsonResponse
 from django.utils import timezone
 from drf_spectacular.utils import extend_schema, inline_serializer
@@ -63,6 +64,13 @@ def live(_request):
 )
 @api_view(["GET"])
 def ready(_request):
+    try:
+        connection.ensure_connection()
+    except Exception:
+        return Response(
+            {"status": "not_ready", "checks": {"database": "error"}},
+            status=status.HTTP_503_SERVICE_UNAVAILABLE,
+        )
     return Response({"status": "ready", "checks": {"database": "ok"}})
 
 

@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+.vercel-env.tmp
+.vercel-env-prod.tmp
+.vercel-secret-rotate.tmp
+.venv/
+.git/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+source/db.sqlite3
+source/staticfiles/
+PRD_Business_Hub_Bisnis_Naik_Kelas_Master_v1 (1).pdf

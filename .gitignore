@@ -7,3 +7,11 @@ htmlcov/
 source/db.sqlite3
 source/staticfiles/
 .env
+.env.local
+.vercel-env.tmp
+.vercel-env-prod.tmp
+.vercel-secret-rotate.tmp
+.vercel/
+
+.vercel
+.env*

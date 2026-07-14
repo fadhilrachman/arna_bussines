@@ -1,0 +1,26 @@
+[project]
+name = "arna-business-hub"
+version = "1.0.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "Django==5.1.1",
+    "djangorestframework==3.15.2",
+    "drf-spectacular==0.27.2",
+    "psycopg[binary]==3.2.3",
+    "python-dotenv==1.0.1",
+    "gunicorn==23.0.0",
+    "whitenoise==6.8.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==8.3.3",
+    "pytest-django==4.9.0",
+    "factory-boy==3.3.1",
+]
+
+[tool.vercel]
+entrypoint = "source.config.asgi:application"
+
+[tool.vercel.scripts]
+build = "python source/manage.py check --deploy"
