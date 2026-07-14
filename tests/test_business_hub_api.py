@@ -25,6 +25,24 @@ def make_token(secret, payload):
     return f"{header}.{body}.{encoded_signature}"
 
 
+class BusinessHubCorsTests(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+    def test_local_preflight_returns_cors_headers_before_auth(self):
+        response = self.client.options(
+            "/api/v1/business-hub/overview/",
+            HTTP_ORIGIN="http://localhost:5173",
+            HTTP_ACCESS_CONTROL_REQUEST_METHOD="GET",
+            HTTP_ACCESS_CONTROL_REQUEST_HEADERS="authorization,content-type",
+        )
+
+        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response["Access-Control-Allow-Origin"], "http://localhost:5173")
+        self.assertIn("authorization", response["Access-Control-Allow-Headers"])
+        self.assertIn("GET", response["Access-Control-Allow-Methods"])
+
+
 @override_settings(DEV_AUTH_BYPASS=True)
 class BusinessHubDevAuthBypassTests(TestCase):
     def setUp(self):
