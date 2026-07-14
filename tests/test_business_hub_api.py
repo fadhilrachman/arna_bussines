@@ -32,14 +32,16 @@ class BusinessHubCorsTests(TestCase):
     def test_local_preflight_returns_cors_headers_before_auth(self):
         response = self.client.options(
             "/api/v1/business-hub/overview/",
-            HTTP_ORIGIN="http://localhost:5173",
+            HTTP_ORIGIN="http://localhost:3001",
             HTTP_ACCESS_CONTROL_REQUEST_METHOD="GET",
-            HTTP_ACCESS_CONTROL_REQUEST_HEADERS="authorization,content-type",
+            HTTP_ACCESS_CONTROL_REQUEST_HEADERS="authorization,content-type,baggage,sentry-trace,x-tenant-id",
         )
 
         self.assertEqual(response.status_code, 204)
-        self.assertEqual(response["Access-Control-Allow-Origin"], "http://localhost:5173")
+        self.assertEqual(response["Access-Control-Allow-Origin"], "http://localhost:3001")
         self.assertIn("authorization", response["Access-Control-Allow-Headers"])
+        self.assertIn("baggage", response["Access-Control-Allow-Headers"])
+        self.assertEqual(response["Access-Control-Allow-Credentials"], "true")
         self.assertIn("GET", response["Access-Control-Allow-Methods"])
 
 

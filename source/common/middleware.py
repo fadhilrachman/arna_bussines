@@ -17,7 +17,7 @@ class CorsMiddleware:
             response["Access-Control-Allow-Origin"] = origin
             response["Vary"] = self.append_vary(response.get("Vary"), "Origin")
             response["Access-Control-Allow-Methods"] = ", ".join(settings.CORS_ALLOW_METHODS)
-            response["Access-Control-Allow-Headers"] = ", ".join(settings.CORS_ALLOW_HEADERS)
+            response["Access-Control-Allow-Headers"] = self.allow_headers(request)
             if settings.CORS_ALLOW_CREDENTIALS:
                 response["Access-Control-Allow-Credentials"] = "true"
             if settings.CORS_PREFLIGHT_MAX_AGE:
@@ -32,6 +32,12 @@ class CorsMiddleware:
         if settings.CORS_ALLOW_ALL_ORIGINS and settings.ENVIRONMENT != "production":
             return True
         return request.headers.get("Origin") in settings.CORS_ALLOWED_ORIGINS
+
+    def allow_headers(self, request) -> str:
+        requested_headers = request.headers.get("Access-Control-Request-Headers")
+        if requested_headers and settings.ENVIRONMENT != "production":
+            return requested_headers
+        return ", ".join(settings.CORS_ALLOW_HEADERS)
 
     def append_vary(self, current: str | None, value: str) -> str:
         if not current:
