@@ -248,6 +248,106 @@ paths:
       responses:
         '204':
           description: No response body
+  /api/v1/business-hub/assets/:
+    get:
+      operationId: assets_list
+      tags:
+      - assets
+      security:
+      - bearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HubAsset'
+          description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+  /api/v1/business-hub/assets/{id}/:
+    get:
+      operationId: assets_retrieve
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this hub asset.
+        required: true
+      tags:
+      - assets
+      security:
+      - bearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HubAsset'
+          description: ''
+  /api/v1/business-hub/assets/sop/:
+    get:
+      operationId: assets_sop_list
+      tags:
+      - assets
+      security:
+      - bearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HubAsset'
+          description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+  /api/v1/business-hub/assets/templates/:
+    get:
+      operationId: assets_templates_list
+      tags:
+      - assets
+      security:
+      - bearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HubAsset'
+          description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
   /api/v1/business-hub/calendar/events/:
     get:
       operationId: calendar_events_list
@@ -626,6 +726,28 @@ paths:
       responses:
         '204':
           description: No response body
+  /api/v1/business-hub/entitlements/:
+    get:
+      operationId: entitlements_retrieve
+      tags:
+      - entitlements
+      security:
+      - bearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessHubEntitlements'
+          description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
   /api/v1/business-hub/goals/:
     get:
       operationId: goals_list
@@ -1511,6 +1633,92 @@ paths:
         description: Tenant identifier for scoping the Business Hub request.
         schema:
           type: string
+  /api/v1/business-hub/settings/:
+    get:
+      operationId: settings_retrieve
+      tags:
+      - settings
+      security:
+      - bearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HubSettings'
+          description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+    put:
+      operationId: settings_update
+      tags:
+      - settings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HubSettingsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/HubSettingsRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/HubSettingsRequest'
+      security:
+      - bearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HubSettings'
+          description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
+    patch:
+      operationId: settings_partial_update
+      tags:
+      - settings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedHubSettingsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedHubSettingsRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedHubSettingsRequest'
+      security:
+      - bearerAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HubSettings'
+          description: ''
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        description: Tenant identifier for scoping the Business Hub request.
+        schema:
+          type: string
   /api/v1/business-hub/vault/documents/:
     get:
       operationId: vault_documents_list
@@ -1861,6 +2069,30 @@ components:
       - id
       - key
       - title
+    AssetTypeEnum:
+      enum:
+      - sop
+      - template
+      type: string
+      description: |-
+        * `sop` - SOP
+        * `template` - Template
+    BusinessHubEntitlements:
+      type: object
+      properties:
+        plan:
+          type: string
+        features:
+          type: object
+          additionalProperties:
+            type: boolean
+        limits:
+          type: object
+          additionalProperties: {}
+      required:
+      - features
+      - limits
+      - plan
     BusinessHubOverview:
       type: object
       properties:
@@ -2222,6 +2454,88 @@ components:
       required:
       - checks
       - status
+    HubAsset:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        key:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+        asset_type:
+          $ref: '#/components/schemas/AssetTypeEnum'
+        title:
+          type: string
+          maxLength: 180
+        description:
+          type: string
+        category:
+          type: string
+          maxLength: 80
+        file_id:
+          type: string
+          maxLength: 120
+        source:
+          type: string
+          maxLength: 80
+        is_premium:
+          type: boolean
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        metadata: {}
+      required:
+      - asset_type
+      - id
+      - key
+      - title
+    HubSettings:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        notification_enabled:
+          type: boolean
+        weekly_digest_enabled:
+          type: boolean
+        ai_auto_insights_enabled:
+          type: boolean
+        default_goal_reminder_days:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        preferences: {}
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - updated_at
+    HubSettingsRequest:
+      type: object
+      properties:
+        notification_enabled:
+          type: boolean
+        weekly_digest_enabled:
+          type: boolean
+        ai_auto_insights_enabled:
+          type: boolean
+        default_goal_reminder_days:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        preferences: {}
     IntegrationStatus:
       type: object
       properties:
@@ -2359,6 +2673,20 @@ components:
           type: string
           minLength: 1
           maxLength: 30
+    PatchedHubSettingsRequest:
+      type: object
+      properties:
+        notification_enabled:
+          type: boolean
+        weekly_digest_enabled:
+          type: boolean
+        ai_auto_insights_enabled:
+          type: boolean
+        default_goal_reminder_days:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        preferences: {}
     PatchedIntegrationStatusRequest:
       type: object
       properties:

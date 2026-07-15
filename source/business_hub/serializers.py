@@ -8,6 +8,8 @@ from .models import (
     ChecklistCompletion,
     ChecklistItem,
     Goal,
+    HubAsset,
+    HubSettings,
     IntegrationStatus,
     RoadmapStage,
     ScoreSnapshot,
@@ -86,6 +88,39 @@ class VaultDocumentSerializer(serializers.ModelSerializer):
             "source",
             "expires_at",
             "linked_checklist_item",
+            "created_at",
+            "updated_at",
+        ]
+
+
+class HubAssetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HubAsset
+        fields = [
+            "id",
+            "key",
+            "asset_type",
+            "title",
+            "description",
+            "category",
+            "file_id",
+            "source",
+            "is_premium",
+            "order",
+            "metadata",
+        ]
+
+
+class HubSettingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HubSettings
+        fields = [
+            "id",
+            "notification_enabled",
+            "weekly_digest_enabled",
+            "ai_auto_insights_enabled",
+            "default_goal_reminder_days",
+            "preferences",
             "created_at",
             "updated_at",
         ]

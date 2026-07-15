@@ -55,6 +55,11 @@ X-Plan: free
 - `GET|POST /api/v1/business-hub/goals/?tenant_id=tenant_demo`
 - `GET|POST /api/v1/business-hub/calendar/events/?tenant_id=tenant_demo`
 - `GET|POST /api/v1/business-hub/ai/insights/?tenant_id=tenant_demo`
+- `GET /api/v1/business-hub/assets/?tenant_id=tenant_demo`
+- `GET /api/v1/business-hub/assets/sop/?tenant_id=tenant_demo`
+- `GET /api/v1/business-hub/assets/templates/?tenant_id=tenant_demo`
+- `GET|PATCH /api/v1/business-hub/settings/?tenant_id=tenant_demo`
+- `GET /api/v1/business-hub/entitlements/?tenant_id=tenant_demo`
 
 ## Scope Implemented
 
@@ -66,6 +71,9 @@ This repository is an MVP backend scaffold based on the PRD:
 - Checklist completion with idempotent XP
 - Basic Business Score v1
 - Business Vault metadata storing `file_id` only
+- SOP/template asset catalog
+- Tenant settings preferences
+- Plan entitlements payload
 - Free/Premium gates for sample premium actions
 - Health checks, OpenAPI schema endpoint, Dockerfile, Jenkinsfile
 - Docs for architecture, API, events, score engine, and frontend integration

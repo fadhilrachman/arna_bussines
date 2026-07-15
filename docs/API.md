@@ -63,3 +63,35 @@ Creates a new Business Score snapshot from current facts.
 `POST /vault/documents/?tenant_id=tenant_demo`
 
 Stores metadata and File Manager `file_id`; it does not upload file bytes.
+
+## SOP Library and Templates
+
+`GET /assets/?tenant_id=tenant_demo`
+
+Returns the complete active asset catalog.
+
+`GET /assets/sop/?tenant_id=tenant_demo`
+
+Returns SOP catalog items.
+
+`GET /assets/templates/?tenant_id=tenant_demo`
+
+Returns template catalog items.
+
+Catalog items can be cloned into Vault by creating a `/vault/documents/` record with document type `sop` or `template`.
+
+## Settings
+
+`GET /settings/?tenant_id=tenant_demo`
+
+Returns tenant preference settings, creating defaults on first read.
+
+`PATCH /settings/?tenant_id=tenant_demo`
+
+Updates tenant preference settings.
+
+## Entitlements
+
+`GET /entitlements/?tenant_id=tenant_demo`
+
+Returns feature flags and limits for the current plan.

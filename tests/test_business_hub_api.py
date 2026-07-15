@@ -9,7 +9,7 @@ from django.test import override_settings
 from django.test import TestCase
 from rest_framework.test import APIClient
 
-from business_hub.models import ChecklistItem, XPTransaction
+from business_hub.models import ChecklistItem, HubSettings, XPTransaction
 
 
 def base64url_json(value):
@@ -124,6 +124,47 @@ class BusinessHubApiTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["level"]["level"], "Level 1")
         self.assertGreaterEqual(len(response.json()["today_quests"]), 1)
+
+    def test_assets_endpoint_returns_sop_and_template_catalogs(self):
+        sop_response = self.client.get(f"/api/v1/business-hub/assets/sop/{self.tenant_query}", **self.headers)
+        template_response = self.client.get(
+            f"/api/v1/business-hub/assets/templates/{self.tenant_query}",
+            **self.headers,
+        )
+        filtered_response = self.client.get(
+            f"/api/v1/business-hub/assets/{self.tenant_query}&asset_type=sop",
+            **self.headers,
+        )
+
+        self.assertEqual(sop_response.status_code, 200)
+        self.assertEqual(template_response.status_code, 200)
+        self.assertEqual(filtered_response.status_code, 200)
+        self.assertGreaterEqual(len(sop_response.json()), 1)
+        self.assertGreaterEqual(len(template_response.json()), 1)
+        self.assertTrue(all(item["asset_type"] == "sop" for item in filtered_response.json()))
+
+    def test_settings_endpoint_is_tenant_singleton_and_updatable(self):
+        initial = self.client.get(f"/api/v1/business-hub/settings/{self.tenant_query}", **self.headers)
+        updated = self.client.patch(
+            f"/api/v1/business-hub/settings/{self.tenant_query}",
+            {"weekly_digest_enabled": False, "preferences": {"language": "id"}},
+            format="json",
+            **self.headers,
+        )
+
+        self.assertEqual(initial.status_code, 200)
+        self.assertEqual(updated.status_code, 200)
+        self.assertFalse(updated.json()["weekly_digest_enabled"])
+        self.assertEqual(updated.json()["preferences"]["language"], "id")
+        self.assertEqual(HubSettings.objects.count(), 1)
+
+    def test_entitlements_endpoint_returns_plan_features_and_limits(self):
+        response = self.client.get(f"/api/v1/business-hub/entitlements/{self.tenant_query}", **self.headers)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["plan"], "free")
+        self.assertTrue(response.json()["features"]["sop_library"])
+        self.assertEqual(response.json()["limits"]["vault_documents"], 5)
 
     def test_checklist_completion_awards_xp_once(self):
         item = ChecklistItem.objects.get(key="complete-profile")

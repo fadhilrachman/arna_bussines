@@ -16,6 +16,8 @@ from .models import (
     ChecklistCompletion,
     ChecklistItem,
     Goal,
+    HubAsset,
+    HubSettings,
     IntegrationStatus,
     RoadmapStage,
     ScoreSnapshot,
@@ -30,6 +32,8 @@ from .serializers import (
     ChecklistCompletionSerializer,
     ChecklistItemSerializer,
     GoalSerializer,
+    HubAssetSerializer,
+    HubSettingsSerializer,
     IntegrationStatusSerializer,
     RoadmapStageSerializer,
     ScoreSnapshotSerializer,
@@ -174,6 +178,30 @@ class VaultDocumentViewSet(TenantScopedViewSet):
         return super().create(request, *args, **kwargs)
 
 
+class HubAssetViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = HubAsset.objects.filter(is_active=True)
+    serializer_class = HubAssetSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        asset_type = self.request.query_params.get("asset_type")
+        if asset_type:
+            queryset = queryset.filter(asset_type=asset_type)
+        return queryset
+
+    @extend_schema(responses=HubAssetSerializer(many=True))
+    @action(detail=False, methods=["get"])
+    def sop(self, request):
+        queryset = self.filter_queryset(self.get_queryset().filter(asset_type="sop"))
+        return Response(self.get_serializer(queryset, many=True).data)
+
+    @extend_schema(responses=HubAssetSerializer(many=True))
+    @action(detail=False, methods=["get"], url_path="templates")
+    def templates(self, request):
+        queryset = self.filter_queryset(self.get_queryset().filter(asset_type="template"))
+        return Response(self.get_serializer(queryset, many=True).data)
+
+
 class ScoreSnapshotViewSet(TenantScopedViewSet):
     queryset = ScoreSnapshot.objects.all()
     serializer_class = ScoreSnapshotSerializer
@@ -237,6 +265,77 @@ class XPTransactionViewSet(TenantScopedViewSet):
     queryset = XPTransaction.objects.all()
     serializer_class = XPTransactionSerializer
     http_method_names = ["get", "head", "options"]
+
+
+def get_or_create_settings(context):
+    settings_object, _ = HubSettings.objects.get_or_create(
+        organization_id=context.organization_id,
+        tenant_id=context.tenant_id,
+        defaults={
+            "created_by": context.user_id,
+            "updated_by": context.user_id,
+        },
+    )
+    return settings_object
+
+
+@extend_schema(
+    methods=["GET"],
+    responses=HubSettingsSerializer,
+)
+@extend_schema(
+    methods=["PATCH", "PUT"],
+    request=HubSettingsSerializer,
+    responses=HubSettingsSerializer,
+)
+@api_view(["GET", "PATCH", "PUT"])
+def settings_view(request):
+    settings_object = get_or_create_settings(request.business_context)
+
+    if request.method == "GET":
+        return Response(HubSettingsSerializer(settings_object).data)
+
+    serializer = HubSettingsSerializer(
+        settings_object,
+        data=request.data,
+        partial=request.method == "PATCH",
+    )
+    serializer.is_valid(raise_exception=True)
+    serializer.save(updated_by=request.business_context.user_id)
+    return Response(serializer.data)
+
+
+@extend_schema(
+    responses=inline_serializer(
+        name="BusinessHubEntitlements",
+        fields={
+            "plan": serializers.CharField(),
+            "features": serializers.DictField(child=serializers.BooleanField()),
+            "limits": serializers.DictField(),
+        },
+    )
+)
+@api_view(["GET"])
+def entitlements(request):
+    plan = request.business_context.plan
+    is_premium = plan in {"premium", "pro", "business", "enterprise"}
+    payload = {
+        "plan": plan,
+        "features": {
+            "premium_checklist": is_premium,
+            "custom_domain": is_premium,
+            "cashflow_review": is_premium,
+            "ai_insights": True,
+            "sop_library": True,
+            "templates": True,
+            "vault_clone": True,
+        },
+        "limits": {
+            "vault_documents": None if is_premium else 5,
+            "ai_insights_per_month": None if is_premium else 1,
+        },
+    }
+    return Response(payload)
 
 
 @extend_schema(

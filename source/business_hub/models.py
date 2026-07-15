@@ -108,6 +108,43 @@ class VaultDocument(TenantModel):
     )
 
 
+class HubAsset(models.Model):
+    ASSET_TYPES = [
+        ("sop", "SOP"),
+        ("template", "Template"),
+    ]
+    key = models.SlugField(unique=True)
+    asset_type = models.CharField(max_length=30, choices=ASSET_TYPES, db_index=True)
+    title = models.CharField(max_length=180)
+    description = models.TextField(blank=True)
+    category = models.CharField(max_length=80, blank=True)
+    file_id = models.CharField(max_length=120, blank=True)
+    source = models.CharField(max_length=80, default="business_hub")
+    is_premium = models.BooleanField(default=False)
+    order = models.PositiveIntegerField(default=0)
+    metadata = models.JSONField(default=dict, blank=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["asset_type", "order", "title"]
+
+    def __str__(self) -> str:
+        return self.title
+
+
+class HubSettings(TenantModel):
+    notification_enabled = models.BooleanField(default=True)
+    weekly_digest_enabled = models.BooleanField(default=True)
+    ai_auto_insights_enabled = models.BooleanField(default=False)
+    default_goal_reminder_days = models.PositiveIntegerField(default=3)
+    preferences = models.JSONField(default=dict, blank=True)
+
+    class Meta:
+        unique_together = [("organization_id", "tenant_id")]
+
+
 class XPTransaction(TenantModel):
     source_type = models.CharField(max_length=80)
     source_id = models.CharField(max_length=120)

@@ -8,6 +8,7 @@ router.register("profiles", views.BusinessProfileViewSet, basename="profile")
 router.register("roadmap", views.RoadmapStageViewSet, basename="roadmap")
 router.register("checklist/completions", views.ChecklistCompletionViewSet, basename="checklist-completion")
 router.register("vault/documents", views.VaultDocumentViewSet, basename="vault-document")
+router.register("assets", views.HubAssetViewSet, basename="asset")
 router.register("score/snapshots", views.ScoreSnapshotViewSet, basename="score-snapshot")
 router.register("goals", views.GoalViewSet, basename="goal")
 router.register("calendar/events", views.CalendarEventViewSet, basename="calendar-event")
@@ -18,5 +19,7 @@ router.register("xp/transactions", views.XPTransactionViewSet, basename="xp-tran
 
 urlpatterns = [
     path("overview/", views.overview, name="overview"),
+    path("settings/", views.settings_view, name="settings"),
+    path("entitlements/", views.entitlements, name="entitlements"),
     path("", include(router.urls)),
 ]

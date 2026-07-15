@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from business_hub.models import ChecklistItem, RoadmapStage
+from business_hub.models import ChecklistItem, HubAsset, RoadmapStage
 
 
 STAGES = [
@@ -26,6 +26,53 @@ CHECKLIST = [
     ("sop-sales", "scale-up", "Buat SOP penjualan", "Operations and SOP", "manual_checklist", 35, "Operations", False),
     ("sop-purchase", "scale-up", "Buat SOP pembelian", "Operations and SOP", "manual_checklist", 30, "Operations", False),
     ("monthly-review", "established", "Selesaikan review bisnis bulanan", "Growth and Readiness", "manual_checklist", 30, "Growth Readiness", False),
+]
+
+ASSETS = [
+    (
+        "sop-sales-basic",
+        "sop",
+        "SOP Penjualan Dasar",
+        "Alur standar untuk menerima lead, follow-up, closing, dan pencatatan penjualan.",
+        "Sales",
+        "asset_sop_sales_basic",
+        False,
+        1,
+        {"document_type": "sop", "recommended_stage": "scale-up"},
+    ),
+    (
+        "sop-purchase-basic",
+        "sop",
+        "SOP Pembelian Barang",
+        "Template proses pembelian, approval, penerimaan barang, dan arsip invoice.",
+        "Operations",
+        "asset_sop_purchase_basic",
+        False,
+        2,
+        {"document_type": "sop", "recommended_stage": "scale-up"},
+    ),
+    (
+        "template-cashflow-monthly",
+        "template",
+        "Template Cashflow Bulanan",
+        "Format ringkas untuk memantau pemasukan, pengeluaran, dan saldo kas bulanan.",
+        "Finance",
+        "asset_template_cashflow_monthly",
+        False,
+        1,
+        {"document_type": "template", "recommended_stage": "grow"},
+    ),
+    (
+        "template-business-review",
+        "template",
+        "Template Review Bisnis Bulanan",
+        "Struktur evaluasi target, realisasi, kendala, dan aksi perbaikan bulan berikutnya.",
+        "Growth",
+        "asset_template_business_review",
+        False,
+        2,
+        {"document_type": "template", "recommended_stage": "established"},
+    ),
 ]
 
 
@@ -58,6 +105,22 @@ class Command(BaseCommand):
                     "xp_reward": xp_reward,
                     "score_dimension": score_dimension,
                     "is_premium": is_premium,
+                },
+            )
+
+        for key, asset_type, title, description, category, file_id, is_premium, order, metadata in ASSETS:
+            HubAsset.objects.update_or_create(
+                key=key,
+                defaults={
+                    "asset_type": asset_type,
+                    "title": title,
+                    "description": description,
+                    "category": category,
+                    "file_id": file_id,
+                    "is_premium": is_premium,
+                    "order": order,
+                    "metadata": metadata,
+                    "is_active": True,
                 },
             )
         self.stdout.write(self.style.SUCCESS("Business Hub roadmap and checklist seed completed."))
