@@ -14,8 +14,9 @@ class CorsMiddleware:
 
         origin = request.headers.get("Origin")
         if origin and self.is_allowed_origin(request):
-            response["Access-Control-Allow-Origin"] = origin
-            response["Vary"] = self.append_vary(response.get("Vary"), "Origin")
+            response["Access-Control-Allow-Origin"] = self.allow_origin(request)
+            if response["Access-Control-Allow-Origin"] != "*":
+                response["Vary"] = self.append_vary(response.get("Vary"), "Origin")
             response["Access-Control-Allow-Methods"] = ", ".join(settings.CORS_ALLOW_METHODS)
             response["Access-Control-Allow-Headers"] = self.allow_headers(request)
             if settings.CORS_ALLOW_CREDENTIALS:
@@ -34,9 +35,14 @@ class CorsMiddleware:
         return request.headers.get("Access-Control-Request-Private-Network") == "true"
 
     def is_allowed_origin(self, request) -> bool:
-        if settings.CORS_ALLOW_ALL_ORIGINS and settings.ENVIRONMENT != "production":
+        if settings.CORS_ALLOW_ALL_ORIGINS:
             return True
         return request.headers.get("Origin") in settings.CORS_ALLOWED_ORIGINS
+
+    def allow_origin(self, request) -> str:
+        if settings.CORS_ALLOW_ALL_ORIGINS and not settings.CORS_ALLOW_CREDENTIALS:
+            return "*"
+        return request.headers["Origin"]
 
     def allow_headers(self, request) -> str:
         requested_headers = request.headers.get("Access-Control-Request-Headers")

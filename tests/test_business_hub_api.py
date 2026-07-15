@@ -39,10 +39,10 @@ class BusinessHubCorsTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 204)
-        self.assertEqual(response["Access-Control-Allow-Origin"], "http://localhost:3001")
+        self.assertEqual(response["Access-Control-Allow-Origin"], "*")
         self.assertIn("authorization", response["Access-Control-Allow-Headers"])
         self.assertIn("baggage", response["Access-Control-Allow-Headers"])
-        self.assertEqual(response["Access-Control-Allow-Credentials"], "true")
+        self.assertNotIn("Access-Control-Allow-Credentials", response)
         self.assertEqual(response["Access-Control-Allow-Private-Network"], "true")
         self.assertIn("GET", response["Access-Control-Allow-Methods"])
 
