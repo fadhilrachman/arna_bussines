@@ -34,7 +34,10 @@ class BusinessHubCorsTests(TestCase):
             "/api/v1/business-hub/overview/",
             HTTP_ORIGIN="http://localhost:3001",
             HTTP_ACCESS_CONTROL_REQUEST_METHOD="GET",
-            HTTP_ACCESS_CONTROL_REQUEST_HEADERS="authorization,content-type,baggage,sentry-trace,x-tenant-id",
+            HTTP_ACCESS_CONTROL_REQUEST_HEADERS=(
+                "authorization,content-type,baggage,sentry-trace,"
+                "x-arna-request-id,x-arna-tenant-slug,x-arna-org-id,x-arna-tenant-id"
+            ),
             HTTP_ACCESS_CONTROL_REQUEST_PRIVATE_NETWORK="true",
         )
 
@@ -42,6 +45,9 @@ class BusinessHubCorsTests(TestCase):
         self.assertEqual(response["Access-Control-Allow-Origin"], "*")
         self.assertIn("authorization", response["Access-Control-Allow-Headers"])
         self.assertIn("baggage", response["Access-Control-Allow-Headers"])
+        self.assertIn("x-arna-tenant-slug", response["Access-Control-Allow-Headers"])
+        self.assertIn("x-arna-org-id", response["Access-Control-Allow-Headers"])
+        self.assertIn("x-arna-tenant-id", response["Access-Control-Allow-Headers"])
         self.assertNotIn("Access-Control-Allow-Credentials", response)
         self.assertEqual(response["Access-Control-Allow-Private-Network"], "true")
         self.assertIn("GET", response["Access-Control-Allow-Methods"])

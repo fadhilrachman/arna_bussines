@@ -46,7 +46,7 @@ class CorsMiddleware:
 
     def allow_headers(self, request) -> str:
         requested_headers = request.headers.get("Access-Control-Request-Headers")
-        if requested_headers and settings.ENVIRONMENT != "production":
+        if requested_headers and settings.CORS_ALLOW_ALL_ORIGINS:
             return requested_headers
         return ", ".join(settings.CORS_ALLOW_HEADERS)
 
